@@ -133,7 +133,7 @@ export default function DepartmentsPage() {
             {/* Dept Header */}
             <div style={{ background: 'var(--blue)', padding: '16px 24px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-                <div style={{ fontFamily: 'Source Serif 4, serif', fontSize: '22px', fontWeight: 600, color: 'white', border: '2px solid rgba(255,255,255,0.3)', width: '52px', height: '52px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '13px', flexShrink: 0 }}>
+                <div style={{ fontFamily: 'Source Serif 4, serif', fontWeight: 600, color: 'white', border: '2px solid rgba(255,255,255,0.3)', width: '52px', height: '52px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '13px', flexShrink: 0 }}>
                   {dept.code}
                 </div>
                 <div>
