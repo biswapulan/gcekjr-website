@@ -150,7 +150,7 @@ export default function Footer() {
         <div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '14px' }}>
             <div style={{ width: '52px', height: '52px', background: 'white', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '6px', flexShrink: 0 }}>
-              <img src="/gcekjr-logo.jpg" alt="GCE Keonjhar" style={{ width: '40px', height: '40px', objectFit: 'contain' }} />
+              <img src="/gcekjr-logo.png" alt="GCE Keonjhar" style={{ width: '40px', height: '40px', objectFit: 'contain' }} />
             </div>
             <div style={{ fontFamily: 'Source Serif 4, serif', lineHeight: 1.4 }}>
               <div style={{ fontSize: '13px', color: 'white' }}>Govt. College of Engineering</div>

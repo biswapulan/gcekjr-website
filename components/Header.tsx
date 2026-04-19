@@ -19,7 +19,7 @@ export default function Header() {
     <>
       <div className="site-header">
         <div className="header-logo">
-          <img src="/gcekjr-logo.jpg" alt="GCE Keonjhar Logo" />
+          <img src="/gcekjr-logo.png" alt="GCE Keonjhar Logo" />
         </div>
         <div className="header-divider" />
         <div style={{ flex: 1, minWidth: 0 }}>

@@ -32,7 +32,7 @@ export default function NotFound() {
 
       <div style={{ position: 'relative', zIndex: 1 }}>
         {/* Logo */}
-        <img src="/gcekjr-logo.jpg" alt="GCE Keonjhar" style={{ width: '72px', height: '72px', objectFit: 'contain', marginBottom: '20px', opacity: 0.85 }} />
+        <img src="/gcekjr-logo.png" alt="GCE Keonjhar" style={{ width: '72px', height: '72px', objectFit: 'contain', marginBottom: '20px', opacity: 0.85 }} />
 
         {/* 404 */}
         <div style={{
