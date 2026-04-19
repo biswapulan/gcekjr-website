@@ -30,7 +30,7 @@ export default async function NoticeBoard({ limit = 6 }: { limit?: number }) {
   let notices: Notice[] = []
   try {
     const data = await getSheetData('Notices')
-    notices = (data as Notice[]).slice(0, limit)
+    notices = (data as unknown as Notice[]).slice(0, limit)
   } catch {
     // fail silently — shows empty state
   }
