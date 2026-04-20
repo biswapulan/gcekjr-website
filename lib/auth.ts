@@ -1,4 +1,4 @@
-import { NextAuthOptions } from 'next-auth'
+import { NextAuthOptions, getServerSession } from 'next-auth'
 import CredentialsProvider from 'next-auth/providers/credentials'
 
 // Simple in-memory rate limiter: max 10 attempts per email per 15 minutes
@@ -51,3 +51,5 @@ export const authOptions: NextAuthOptions = {
   session: { strategy: 'jwt' },
   secret: process.env.NEXTAUTH_SECRET,
 }
+// Convenience wrapper so API routes can do: const session = await auth()
+export function auth() { return getServerSession(authOptions) }
