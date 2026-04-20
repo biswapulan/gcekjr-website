@@ -73,7 +73,7 @@ export default function LoginPortal() {
               padding: '10px',
             }}>
               <img
-                src="/gcekjr-logo.png"
+                src="/gcekjr-logo.jpg"
                 alt="GCE Keonjhar"
                 style={{ width: '88px', height: '88px', objectFit: 'contain' }}
               />
