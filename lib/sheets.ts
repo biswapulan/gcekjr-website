@@ -1,6 +1,5 @@
 import { google } from 'googleapis'
 import { sheets_v4 } from 'googleapis'
-import { unstable_cache } from 'next/cache'
 
 const SPREADSHEET_ID = process.env.GOOGLE_SPREADSHEET_ID!
 
@@ -32,17 +31,8 @@ async function _getSheetData(sheetName: string): Promise<Record<string, string>[
   )
 }
 
-/**
- * Cached sheet reader — revalidates every 60 seconds.
- * On write operations (POST/DELETE), call revalidateTag('sheet-<sheetName>')
- * to bust the cache immediately.
- */
 export function getSheetData(sheetName: string): Promise<Record<string, string>[]> {
-  return unstable_cache(
-    () => _getSheetData(sheetName),
-    [`sheet-${sheetName}`],
-    { revalidate: 60, tags: [`sheet-${sheetName}`] }
-  )()
+  return _getSheetData(sheetName)
 }
 
 export async function appendRow(sheetName: string, values: string[]): Promise<void> {

@@ -33,7 +33,8 @@ export default function GalleryTab() {
   const del = async (i: number) => {
     if (!confirm('Remove this image?')) return
     try {
-      await fetch('/api/gallery', { method: 'DELETE', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ rowIndex: i }) })
+      const r = await fetch('/api/gallery', { method: 'DELETE', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ rowIndex: i }) })
+      if (!r.ok) throw new Error()
       flash('Image removed.', 'success'); load()
     } catch { flash('Failed to delete.', 'error') }
   }

@@ -32,7 +32,8 @@ export default function EventsTab() {
   const del = async (i: number) => {
     if (!confirm('Delete this event?')) return
     try {
-      await fetch('/api/events', { method: 'DELETE', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ rowIndex: i }) })
+      const r = await fetch('/api/events', { method: 'DELETE', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ rowIndex: i }) })
+      if (!r.ok) throw new Error()
       flash('Event deleted.', 'success'); load()
     } catch { flash('Failed to delete.', 'error') }
   }

@@ -14,15 +14,25 @@ export async function GET() {
 export async function POST(req: NextRequest) {
   const session = await auth()
   if (!session) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
-  const body = await req.json()
-  await appendRow('Notices', [body.date, body.title, body.category, body.pdfUrl, body.isNew ? 'true' : 'false'])
-  return NextResponse.json({ ok: true })
+  try {
+    const body = await req.json()
+    await appendRow('Notices', [body.date, body.title, body.category, body.pdfUrl, body.isNew ? 'true' : 'false'])
+    return NextResponse.json({ ok: true })
+  } catch (err) {
+    console.error('[POST /api/notices]', err)
+    return NextResponse.json({ error: 'Failed to add notice' }, { status: 500 })
+  }
 }
 
 export async function DELETE(req: NextRequest) {
   const session = await auth()
   if (!session) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
-  const { rowIndex } = await req.json()
-  await deleteRow('Notices', rowIndex)
-  return NextResponse.json({ ok: true })
+  try {
+    const { rowIndex } = await req.json()
+    await deleteRow('Notices', rowIndex)
+    return NextResponse.json({ ok: true })
+  } catch (err) {
+    console.error('[DELETE /api/notices]', err)
+    return NextResponse.json({ error: 'Failed to delete notice' }, { status: 500 })
+  }
 }

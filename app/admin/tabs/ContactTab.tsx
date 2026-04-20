@@ -34,7 +34,16 @@ export default function ContactTab() {
   // Load from sheet on mount
   useEffect(() => {
     fetch('/api/contact').then(r => r.json()).then(d => {
-      if (d && d.phone) setInfo({ ...DEFAULT, ...d })
+      if (d && (d.Phone || d.phone)) setInfo({
+        phone:               d.Phone               || d.phone               || DEFAULT.phone,
+        email:               d.Email               || d.email               || DEFAULT.email,
+        establishmentEmail:  d.EstablishmentEmail  || d.establishmentEmail  || DEFAULT.establishmentEmail,
+        address:             d.Address             || d.address             || DEFAULT.address,
+        officeHours:         d.OfficeHours         || d.officeHours         || DEFAULT.officeHours,
+        collegeTimings:      d.CollegeTimings      || d.collegeTimings      || DEFAULT.collegeTimings,
+        tpoEmail:            d.TpoEmail            || d.tpoEmail            || DEFAULT.tpoEmail,
+        tpoPhone:            d.TpoPhone            || d.tpoPhone            || DEFAULT.tpoPhone,
+      })
     }).catch(() => {})
   }, [])
 

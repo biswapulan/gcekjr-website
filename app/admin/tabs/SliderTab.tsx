@@ -32,7 +32,8 @@ export default function SliderTab() {
   const del = async (i: number) => {
     if (!confirm('Delete this slide?')) return
     try {
-      await fetch('/api/slider', { method: 'DELETE', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ rowIndex: i }) })
+      const r = await fetch('/api/slider', { method: 'DELETE', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ rowIndex: i }) })
+      if (!r.ok) throw new Error()
       flash('Slide deleted.', 'success'); load()
     } catch { flash('Failed to delete.', 'error') }
   }

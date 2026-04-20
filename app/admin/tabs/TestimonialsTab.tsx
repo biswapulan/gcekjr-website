@@ -32,7 +32,8 @@ export default function TestimonialsTab() {
   const del = async (i: number) => {
     if (!confirm('Remove this testimonial?')) return
     try {
-      await fetch('/api/testimonials', { method: 'DELETE', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ rowIndex: i }) })
+      const r = await fetch('/api/testimonials', { method: 'DELETE', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ rowIndex: i }) })
+      if (!r.ok) throw new Error()
       flash('Removed.', 'success'); load()
     } catch { flash('Failed to delete.', 'error') }
   }
