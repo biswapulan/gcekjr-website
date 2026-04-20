@@ -1,5 +1,5 @@
-import NextAuth from 'next-auth'
-import Credentials from 'next-auth/providers/credentials'
+import { NextAuthOptions } from 'next-auth'
+import CredentialsProvider from 'next-auth/providers/credentials'
 
 // Simple in-memory rate limiter: max 10 attempts per email per 15 minutes
 const loginAttempts = new Map<string, { count: number; resetAt: number }>()
@@ -16,19 +16,17 @@ function checkRateLimit(email: string): boolean {
   return true
 }
 
-export const { handlers, signIn, signOut, auth } = NextAuth({
-  // Required for NextAuth v5 beta — avoids NEXTAUTH_URL mismatch issues
-  trustHost: true,
+export const authOptions: NextAuthOptions = {
   providers: [
-    Credentials({
+    CredentialsProvider({
       name: 'credentials',
       credentials: {
         email: { label: 'Email', type: 'email' },
         password: { label: 'Password', type: 'password' },
       },
       async authorize(credentials) {
-        const email = (credentials?.email as string) ?? ''
-        const password = (credentials?.password as string) ?? ''
+        const email = credentials?.email ?? ''
+        const password = credentials?.password ?? ''
 
         if (!email || !password) return null
         if (!checkRateLimit(email)) return null
@@ -52,4 +50,4 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   pages: { signIn: '/admin/login' },
   session: { strategy: 'jwt' },
   secret: process.env.NEXTAUTH_SECRET,
-})
+}
