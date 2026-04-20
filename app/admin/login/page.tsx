@@ -14,10 +14,33 @@ export default function LoginPage() {
     e.preventDefault()
     setLoading(true)
     setError('')
-    const res = await signIn('credentials', { email, password, redirect: false })
+
+    try {
+      const res = await signIn('credentials', { email, password, redirect: false })
+
+      // NextAuth v5 beta: res can be null/undefined on success in some configs
+      // Check for explicit error first, then treat null/undefined as success
+      if (res?.error) {
+        setError('Invalid email or password.')
+        setLoading(false)
+        return
+      }
+
+      // res?.ok OR res is null/undefined both mean we should check session
+      if (res?.ok || res == null) {
+        router.push('/admin')
+        router.refresh()
+        return
+      }
+
+      // Fallback: if res exists but not ok
+      setError('Invalid email or password.')
+    } catch (err) {
+      console.error('Login error:', err)
+      setError('Something went wrong. Please try again.')
+    }
+
     setLoading(false)
-    if (res?.ok) router.push('/admin')
-    else setError('Invalid email or password.')
   }
 
   return (

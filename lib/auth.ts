@@ -17,6 +17,8 @@ function checkRateLimit(email: string): boolean {
 }
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
+  // Required for NextAuth v5 beta — avoids NEXTAUTH_URL mismatch issues
+  trustHost: true,
   providers: [
     Credentials({
       name: 'credentials',
@@ -31,10 +33,15 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         if (!email || !password) return null
         if (!checkRateLimit(email)) return null
 
-        if (
-          email === process.env.ADMIN_EMAIL &&
-          password === process.env.ADMIN_PASSWORD
-        ) {
+        const adminEmail = process.env.ADMIN_EMAIL ?? ''
+        const adminPassword = process.env.ADMIN_PASSWORD ?? ''
+
+        if (!adminEmail || !adminPassword) {
+          console.error('[Auth] ADMIN_EMAIL or ADMIN_PASSWORD env vars are not set!')
+          return null
+        }
+
+        if (email === adminEmail && password === adminPassword) {
           loginAttempts.delete(email)
           return { id: '1', name: 'Admin', email }
         }
