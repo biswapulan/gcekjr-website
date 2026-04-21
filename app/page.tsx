@@ -14,6 +14,8 @@ import AnimateOnScroll from '@/components/AnimateOnScroll'
 import PopupBanner from '@/components/PopupBanner'
 import Link from 'next/link'
 
+export const revalidate = 0
+
 const departments = [
   { code: 'CE',  name: 'Civil Engineering',             since: 'Established 1997 · B.Tech 4 Years', href: '/departments/civil' },
   { code: 'CSE', name: 'Computer Science & Engineering', since: 'Established 2002 · B.Tech 4 Years', href: '/departments/cse' },
