@@ -51,11 +51,9 @@ const semesterStructure = [
 
 function SectionHeading({ title }: { title: string }) {
   return (
-    <div style={{ display: 'flex', alignItems: 'center', marginBottom: '24px' }}>
-      <h2 style={{ fontFamily: 'Source Serif 4, serif', fontSize: '16px', fontWeight: 600, color: 'white', background: 'var(--blue)', padding: '8px 16px', whiteSpace: 'nowrap' }}>
-        {title}
-      </h2>
-      <div style={{ flex: 1, height: '2px', background: 'var(--border)', alignSelf: 'flex-end' }} />
+    <div className="section-heading">
+      <h2>{title}</h2>
+      <div className="section-heading-line" />
     </div>
   )
 }
@@ -92,7 +90,7 @@ export default function AcademicsPage() {
         <SectionHeading title="Undergraduate Programmes (B.Tech)" />
         <div style={{ display: 'flex', flexDirection: 'column', gap: '1px', background: 'var(--border)', marginBottom: '48px' }}>
           {programmes.map((p) => (
-            <div key={p.code} style={{ background: 'var(--white)', padding: '20px 24px', display: 'grid', gridTemplateColumns: '64px 1fr auto', gap: '20px', alignItems: 'flex-start' }}>
+            <div key={p.code} className="prog-card" style={{ background: 'var(--white)', padding: '20px 24px', display: 'grid', gridTemplateColumns: '64px 1fr auto', gap: '20px', alignItems: 'flex-start' }}>
               <div style={{ background: 'var(--blue)', color: 'white', fontSize: '12px', fontWeight: 700, width: '54px', height: '54px', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '2px solid var(--blue)', flexShrink: 0 }}>
                 {p.code}
               </div>
@@ -117,7 +115,7 @@ export default function AcademicsPage() {
 
         {/* Semester Structure */}
         <SectionHeading title="Semester Structure" />
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '1px', background: 'var(--border)', marginBottom: '48px' }}>
+        <div className="sem-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '1px', background: 'var(--border)', marginBottom: '48px' }}>
           {semesterStructure.map((s, i) => (
             <div key={i} style={{ background: 'var(--white)', padding: '20px 16px' }}>
               <div style={{ background: 'var(--blue)', color: 'white', fontSize: '10px', fontWeight: 600, letterSpacing: '0.5px', padding: '4px 10px', display: 'inline-block', marginBottom: '10px' }}>
@@ -131,7 +129,7 @@ export default function AcademicsPage() {
 
         {/* Evaluation */}
         <SectionHeading title="Evaluation & Examination" />
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '48px' }}>
+        <div className="eval-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '48px' }}>
           {[
             { title: 'Internal Assessment', desc: 'Each subject carries 30 marks of internal assessment comprising two mid-semester tests (MST-I and MST-II), assignments, quizzes, and attendance.' },
             { title: 'End Semester Examination', desc: 'BPUT conducts End Semester Examinations (ESE) carrying 70 marks for theory subjects at the end of each semester.' },
@@ -146,7 +144,7 @@ export default function AcademicsPage() {
         </div>
 
         {/* Academic Calendar notice */}
-        <div style={{ background: 'var(--blue)', padding: '24px 28px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <div className="acad-cta" style={{ background: 'var(--blue)', padding: '24px 28px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <div>
             <div style={{ fontFamily: 'Source Serif 4, serif', fontSize: '16px', fontWeight: 600, color: 'white', marginBottom: '4px' }}>Academic Calendar & Time Table</div>
             <div style={{ fontSize: '12px', color: 'rgba(255,255,255,0.6)' }}>Download the current semester schedule and academic planner from the notices section.</div>

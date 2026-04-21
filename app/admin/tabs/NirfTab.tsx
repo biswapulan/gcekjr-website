@@ -33,7 +33,8 @@ export default function NirfTab() {
   const del = async (i: number) => {
     if (!confirm('Remove this document?')) return
     try {
-      await fetch('/api/nirf', { method: 'DELETE', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ rowIndex: i }) })
+      const r = await fetch("/api/nirf", { method: "DELETE", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ rowIndex: i }) })
+      if (!r.ok) throw new Error()
       flash('Removed.', 'success'); load()
     } catch { flash('Failed to delete.', 'error') }
   }

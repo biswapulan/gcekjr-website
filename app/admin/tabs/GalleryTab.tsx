@@ -1,6 +1,7 @@
 'use client'
 import { useEffect, useState } from 'react'
 import { SectionHead, Input, AddCard, Flash, EmptyState, LoadingState, DeleteBtn } from './shared'
+import { getDriveImageUrl } from '@/lib/driveImage'
 
 interface GalleryItem { Title: string; ImageUrl: string; Category: string }
 const CATEGORIES = ['Events', 'Campus', 'Labs', 'Sports', 'Convocation', 'Other']
@@ -67,7 +68,7 @@ export default function GalleryTab() {
             <div key={i} style={{ background: 'var(--card-bg)', border: '1px solid var(--border)', borderRadius: '2px', overflow: 'hidden' }}>
               <div style={{ height: '150px', background: 'var(--blue-light)', overflow: 'hidden', position: 'relative' }}>
                 {g.ImageUrl
-                  ? <img src={g.ImageUrl} alt={g.Title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} onError={e => { (e.target as HTMLImageElement).style.display = 'none' }} />
+                  ? <img src={getDriveImageUrl(g.ImageUrl)} alt={g.Title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} onError={e => { (e.target as HTMLImageElement).style.display = 'none' }} />
                   : <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%', fontSize: '32px', opacity: 0.3 }}>🖼</div>
                 }
                 <div style={{ position: 'absolute', top: '6px', right: '6px', background: 'var(--blue)', color: 'white', fontSize: '10px', fontWeight: 600, padding: '2px 8px' }}>{g.Category}</div>

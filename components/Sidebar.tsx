@@ -1,16 +1,6 @@
 'use client'
-import { useEffect, useState } from 'react'
-
-interface Event { DateRange: string; Title: string }
 
 export default function Sidebar() {
-  const [events, setEvents] = useState<Event[]>([])
-
-  useEffect(() => {
-    fetch('/api/events').then(r => r.json()).then(data => {
-      setEvents(Array.isArray(data) ? data.slice(0, 4) : [])
-    }).catch(() => {})
-  }, [])
 
   const quickLinks = [
     { label: 'UG Admission 2026-27', sub: 'Apply via OJEE Portal', href: 'https://ojee.nic.in', icon: 'M22 10v6M2 10l10-5 10 5-10 5zM6 12v5c3 3 9 3 12 0v-5' },
@@ -55,23 +45,6 @@ export default function Sidebar() {
         </div>
       </div>
 
-      {/* Upcoming Events */}
-      <div style={{marginBottom:'24px'}}>
-        <div style={{fontFamily:'Source Serif 4, serif',fontSize:'13px',fontWeight:600,color:'white',background:'var(--blue)',padding:'7px 12px'}}>Upcoming Events</div>
-        <div style={{border:'1px solid var(--border)',borderTop:'none'}}>
-          {events.length === 0 ? (
-            <div style={{padding:'12px',fontSize:'12px',color:'var(--muted)'}}>No upcoming events.</div>
-          ) : events.map((e, i) => (
-            <div key={i} style={{padding:'10px 12px',borderBottom:i<events.length-1?'1px solid var(--border)':'none',display:'flex',gap:'10px',alignItems:'flex-start'}}>
-              <span style={{background:'var(--blue-light)',color:'var(--blue)',fontSize:'11px',fontWeight:600,padding:'3px 8px',whiteSpace:'nowrap',flexShrink:0,border:'1px solid var(--border)'}}>
-                {e.DateRange}
-              </span>
-              <span style={{fontSize:'12px',color:'var(--text)',lineHeight:1.4}}>{e.Title}</span>
-            </div>
-          ))}
-        </div>
-      </div>
-
       {/* Important Links */}
       <div>
         <div style={{fontFamily:'Source Serif 4, serif',fontSize:'13px',fontWeight:600,color:'white',background:'var(--blue)',padding:'7px 12px'}}>Important Links</div>
@@ -85,6 +58,7 @@ export default function Sidebar() {
           ))}
         </div>
       </div>
+
     </div>
   )
 }

@@ -49,6 +49,10 @@ export async function appendRow(sheetName: string, values: string[]): Promise<vo
 /**
  * Delete a data row by its 0-based index in the data array (excluding the header row).
  * dataIndex=0 → deletes sheet row 2 (first data row after header).
+ *
+ * Google Sheets API batchUpdate deleteDimension uses 0-based row indices where:
+ *   Row 0 = the header row | Row 1 = first data row
+ * So dataIndex 0 (first data row) → startIndex = 1
  */
 export async function deleteRow(sheetName: string, dataIndex: number): Promise<void> {
   const auth = getAuth()
@@ -57,8 +61,9 @@ export async function deleteRow(sheetName: string, dataIndex: number): Promise<v
   const sheet = meta.data.sheets?.find(
     (s: sheets_v4.Schema$Sheet) => s.properties?.title === sheetName
   )
+  if (!sheet) throw new Error(`Sheet "${sheetName}" not found`)
   const sheetId = sheet?.properties?.sheetId
-  // +1 to skip the header row (row index 0 in Sheets API = row 1 in spreadsheet)
+  // +1 to skip the header row
   const startIndex = dataIndex + 1
   await sheets.spreadsheets.batchUpdate({
     spreadsheetId: SPREADSHEET_ID,

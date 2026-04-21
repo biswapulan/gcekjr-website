@@ -36,7 +36,6 @@ const navItems = [
     { label: 'Metallurgical & Materials', href: '/departments/metallurgy' },
     { label: 'Mineral Engineering', href: '/departments/mineral' },
   ]},
-  { label: 'Faculty', href: '/faculty' },
   { label: 'Campus Life', href: '/campus-life/student-activity-center', dropdown: [
     { label: 'Student Activity Center', href: '/campus-life/student-activity-center' },
     { label: 'Clubs', href: '/campus-life/clubs' },
@@ -52,6 +51,7 @@ const navItems = [
   ]},
   { label: 'Placement', href: '/placement' },
   { label: 'Gallery', href: '/gallery' },
+
   { label: 'Downloads', href: '/downloads' },
   { label: 'Notices', href: '/notices' },
   { label: 'Contact', href: '/contact' },
@@ -95,14 +95,9 @@ export default function Nav() {
           ))}
         </div>
 
-        <div className="nav-ext-links">
-          <a href="https://bput.ac.in" target="_blank" rel="noopener noreferrer" className="nav-ext-link">BPUT</a>
-          <a href="https://ojee.nic.in" target="_blank" rel="noopener noreferrer" className="nav-ext-link">OJEE</a>
-        </div>
-
         {/* Hamburger */}
         <button className="hamburger" onClick={() => setDrawerOpen(true)} aria-label="Open menu">
-          <span/><span/><span/>
+          Menu
         </button>
       </nav>
 
@@ -112,10 +107,7 @@ export default function Nav() {
       {/* Mobile Drawer */}
       <div className={`nav-drawer ${drawerOpen ? 'open' : ''}`}>
         <div className="drawer-header">
-          <div className="drawer-logo">
-            <img src="/gcekjr-logo.jpg" alt="GCE" />
-            <div className="drawer-logo-text">GCE Keonjhar<br /><span style={{ fontSize: '10px', opacity: 0.6 }}>Official Website</span></div>
-          </div>
+          <div className="drawer-menu-title">Menu</div>
           <button className="drawer-close" onClick={() => setDrawerOpen(false)}>✕</button>
         </div>
 
@@ -164,8 +156,6 @@ export default function Nav() {
         </div>
 
         <div className="drawer-footer">
-          <a href="https://bput.ac.in" target="_blank" rel="noopener noreferrer" className="drawer-ext-btn">BPUT</a>
-          <a href="https://ojee.nic.in" target="_blank" rel="noopener noreferrer" className="drawer-ext-btn">OJEE</a>
           <a href="/login" className="drawer-ext-btn" onClick={() => setDrawerOpen(false)}>Login</a>
         </div>
       </div>

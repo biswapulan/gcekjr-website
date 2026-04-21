@@ -3,39 +3,29 @@ import { useState } from 'react'
 import { useSession, signOut } from 'next-auth/react'
 import dynamic from 'next/dynamic'
 
-// Lazy load each tab
-const NoticesTab     = dynamic(() => import('./tabs/NoticesTab'))
-const EventsTab      = dynamic(() => import('./tabs/EventsTab'))
-const FacultyTab     = dynamic(() => import('./tabs/FacultyTab'))
-const GalleryTab     = dynamic(() => import('./tabs/GalleryTab'))
-const SliderTab      = dynamic(() => import('./tabs/SliderTab'))
-const ContactTab     = dynamic(() => import('./tabs/ContactTab'))
-const DownloadsTab   = dynamic(() => import('./tabs/DownloadsTab'))
-const NirfTab        = dynamic(() => import('./tabs/NirfTab'))
-const RecruitersTab  = dynamic(() => import('./tabs/RecruitersTab'))
-const TestimonialsTab= dynamic(() => import('./tabs/TestimonialsTab'))
+const NoticesTab   = dynamic(() => import('./tabs/NoticesTab'))
+const FacultyTab   = dynamic(() => import('./tabs/FacultyTab'))
+const GalleryTab   = dynamic(() => import('./tabs/GalleryTab'))
+const SliderTab    = dynamic(() => import('./tabs/SliderTab'))
+const DownloadsTab = dynamic(() => import('./tabs/DownloadsTab'))
+const BannerTab    = dynamic(() => import('./tabs/BannerTab'))
 
-type Tab = 'notices'|'events'|'faculty'|'gallery'|'slider'|'contact'|'downloads'|'nirf'|'recruiters'|'testimonials'
+type Tab = 'notices'|'faculty'|'gallery'|'slider'|'downloads'|'banner'
 
 const tabs: { key: Tab; label: string; icon: string; group: string }[] = [
-  { key: 'notices',      label: 'Notices',        icon: '📋', group: 'Content' },
-  { key: 'events',       label: 'Events',          icon: '📅', group: 'Content' },
-  { key: 'faculty',      label: 'Faculty',         icon: '👩‍🏫', group: 'Content' },
-  { key: 'gallery',      label: 'Gallery',         icon: '🖼',  group: 'Content' },
-  { key: 'slider',       label: 'Hero Slider',     icon: '🎞',  group: 'Content' },
-  { key: 'recruiters',   label: 'Recruiters',      icon: '🏢', group: 'Content' },
-  { key: 'testimonials', label: 'Testimonials',    icon: '💬', group: 'Content' },
-  { key: 'downloads',    label: 'Downloads',       icon: '⬇',  group: 'Documents' },
-  { key: 'nirf',         label: 'NIRF & Reports',  icon: '📄', group: 'Documents' },
-  { key: 'contact',      label: 'Contact Info',    icon: '📞', group: 'Settings' },
+  { key: 'notices',   label: 'Notices',      icon: '📋', group: 'Content' },
+  { key: 'faculty',   label: 'Faculty',      icon: '👩‍🏫', group: 'Content' },
+  { key: 'gallery',   label: 'Gallery',      icon: '🖼',  group: 'Content' },
+  { key: 'slider',    label: 'Hero Slider',  icon: '🎞',  group: 'Content' },
+  { key: 'banner',    label: 'Popup Banner', icon: '📢', group: 'Content' },
+  { key: 'downloads', label: 'Downloads',    icon: '⬇',  group: 'Documents' },
 ]
 
 function TabComponent({ tab }: { tab: Tab }) {
   const map: Record<Tab, React.ReactNode> = {
-    notices: <NoticesTab />, events: <EventsTab />, faculty: <FacultyTab />,
-    gallery: <GalleryTab />, slider: <SliderTab />, contact: <ContactTab />,
-    downloads: <DownloadsTab />, nirf: <NirfTab />, recruiters: <RecruitersTab />,
-    testimonials: <TestimonialsTab />,
+    notices: <NoticesTab />, faculty: <FacultyTab />,
+    gallery: <GalleryTab />, slider: <SliderTab />,
+    downloads: <DownloadsTab />, banner: <BannerTab />,
   }
   return <>{map[tab]}</>
 }
@@ -61,7 +51,6 @@ export default function AdminPage() {
       {/* Top Bar */}
       <div style={{ background: 'var(--blue)', padding: '0 16px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: '52px', flexShrink: 0, borderBottom: '2px solid var(--red)' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-          {/* Mobile hamburger */}
           <button
             className="admin-hamburger"
             onClick={() => setSidebarOpen(!sidebarOpen)}
@@ -88,13 +77,8 @@ export default function AdminPage() {
         </div>
       </div>
 
-      {/* Mobile overlay */}
       {sidebarOpen && (
-        <div
-          onClick={() => setSidebarOpen(false)}
-          style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.5)', zIndex: 40 }}
-          className="admin-overlay"
-        />
+        <div onClick={() => setSidebarOpen(false)} style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.5)', zIndex: 40 }} className="admin-overlay" />
       )}
 
       <div style={{ display: 'flex', flex: 1, overflow: 'hidden', position: 'relative' }}>
@@ -126,22 +110,19 @@ export default function AdminPage() {
             </div>
           ))}
 
-          {/* Sheet setup guide */}
           <div style={{ margin: '16px 12px 0', background: 'var(--blue-light)', border: '1px solid var(--border)', borderRadius: '2px', padding: '10px 12px' }}>
             <div style={{ fontSize: '10px', fontWeight: 700, color: 'var(--blue)', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '6px' }}>Google Sheets Setup</div>
             <div style={{ fontSize: '11px', color: 'var(--muted)', lineHeight: 1.6 }}>
               Required sheet tabs:<br />
-              Notices · Events · Faculty<br />
-              Gallery · Slider · Contact<br />
-              Downloads · Nirf<br />
-              Recruiters · Testimonials
+              Notices · Faculty<br />
+              Gallery · Slider<br />
+              Downloads · Banner
             </div>
           </div>
         </div>
 
         {/* Main Content */}
         <div style={{ flex: 1, overflowY: 'auto', padding: '24px 20px' }} className="admin-content">
-          {/* Mobile breadcrumb */}
           <div className="admin-mobile-breadcrumb" style={{ display: 'none', alignItems: 'center', gap: '8px', marginBottom: '16px' }}>
             <button
               onClick={() => setSidebarOpen(true)}

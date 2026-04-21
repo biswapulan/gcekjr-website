@@ -4,6 +4,7 @@ import UtilBar from '@/components/UtilBar'
 import Header from '@/components/Header'
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
+import { getDriveImageUrl } from '@/lib/driveImage'
 
 interface Faculty { Name: string; Designation: string; Department: string; Qualification: string; PhotoUrl: string }
 
@@ -39,7 +40,7 @@ export default function FacultyPage() {
                 <div key={i} style={{border:'1px solid var(--border)',background:'white',padding:'16px',textAlign:'center'}}>
                   <div style={{width:'72px',height:'88px',background:'var(--blue-light)',margin:'0 auto 12px',display:'flex',alignItems:'center',justifyContent:'center',border:'1px solid var(--border)'}}>
                     {f.PhotoUrl ? (
-                      <img src={f.PhotoUrl} alt={f.Name} style={{width:'100%',height:'100%',objectFit:'cover'}}/>
+                      <img src={getDriveImageUrl(f.PhotoUrl)} alt={f.Name} style={{width:'100%',height:'100%',objectFit:'cover'}}/>
                     ) : (
                       <svg width="32" height="32" viewBox="0 0 36 36">
                         <circle cx="18" cy="13" r="7" fill="#1a3a6b" opacity="0.3"/>

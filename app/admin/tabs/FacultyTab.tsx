@@ -34,7 +34,8 @@ export default function FacultyTab() {
   const del = async (i: number) => {
     if (!confirm('Delete this faculty member?')) return
     try {
-      await fetch('/api/faculty', { method: 'DELETE', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ rowIndex: i }) })
+      const r = await fetch('/api/faculty', { method: 'DELETE', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ rowIndex: i }) })
+      if (!r.ok) throw new Error()
       flash('Deleted.', 'success'); load()
     } catch { flash('Failed to delete.', 'error') }
   }

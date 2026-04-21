@@ -10,7 +10,6 @@ const TAG_STYLES: Record<string, { bg: string; color: string }> = {
 
 function parseDate(d: string): { day: string; mon: string } {
   if (!d || d.trim() === '') return { day: '--', mon: '---' }
-  // Try ISO format first (YYYY-MM-DD), then DD-MM-YYYY, then DD/MM/YYYY
   let dt: Date | null = null
   const iso = Date.parse(d)
   if (!isNaN(iso)) {
@@ -32,46 +31,54 @@ export default async function NoticeBoard({ limit = 6 }: { limit?: number }) {
     const data = await getSheetData('Notices')
     notices = (data as unknown as Notice[]).slice(0, limit)
   } catch {
-    // fail silently — shows empty state
+    // fail silently
   }
 
   return (
-    <div>
-      {notices.length === 0 && (
-        <div style={{ padding: '20px', color: 'var(--muted)', fontSize: '13px', textAlign: 'center' }}>
-          No notices at this time.
-        </div>
-      )}
-      {notices.map((n, i) => {
-        const { day, mon } = parseDate(n.Date)
-        const tag = n.IsNew === 'true' ? 'New' : n.Category
-        const tagStyle = TAG_STYLES[tag] || null
-        return (
-          <div key={i} style={{ display:'flex', gap:'12px', padding:'11px 0', borderBottom: i < notices.length - 1 ? '1px dashed var(--border)' : 'none', alignItems:'flex-start' }}>
-            <div style={{ background:'var(--blue)', color:'white', padding:'5px 8px', textAlign:'center', flexShrink:0, minWidth:'42px' }}>
-              <div style={{ fontFamily:'Source Serif 4, serif', fontSize:'17px', fontWeight:600, lineHeight:1 }}>{day}</div>
-              <div style={{ fontSize:'9px', textTransform:'uppercase', letterSpacing:'0.5px', opacity:0.8, marginTop:'2px' }}>{mon}</div>
+    <div className="notice-board">
+      <div className="notice-board-header">
+        <span className="notice-board-title">
+          <span className="notice-board-dot" />
+          Notices &amp; Announcements
+        </span>
+        <span style={{ fontSize: '10px', color: 'rgba(255,255,255,0.5)', letterSpacing: '0.5px' }}>LATEST UPDATES</span>
+      </div>
+      <div className="notice-board-body">
+        {notices.length === 0 && (
+          <div className="notice-empty">No notices at this time.</div>
+        )}
+        {notices.map((n, i) => {
+          const { day, mon } = parseDate(n.Date)
+          const tag = n.IsNew === 'true' ? 'New' : n.Category
+          const tagStyle = TAG_STYLES[tag] || null
+          return (
+            <div key={i} className="notice-row">
+              <div className="notice-date-badge">
+                <div className="notice-date-day">{day}</div>
+                <div className="notice-date-mon">{mon}</div>
+              </div>
+              <div className="notice-body">
+                {n.PdfUrl ? (
+                  <a href={n.PdfUrl} target="_blank" rel="noopener noreferrer" className="notice-title">
+                    {n.Title}
+                    {tagStyle && (
+                      <span className="notice-tag" style={tagStyle}>{tag}</span>
+                    )}
+                  </a>
+                ) : (
+                  <span className="notice-title">
+                    {n.Title}
+                    {tagStyle && (
+                      <span className="notice-tag" style={tagStyle}>{tag}</span>
+                    )}
+                  </span>
+                )}
+                <span className="notice-cat">{n.Category}</span>
+              </div>
             </div>
-            <div>
-              {n.PdfUrl ? (
-                <a href={n.PdfUrl} target="_blank" rel="noopener noreferrer"
-                  style={{ fontSize:'12.5px', color:'var(--text)', lineHeight:1.5 }}>
-                  {n.Title}
-                </a>
-              ) : (
-                <span style={{ fontSize:'12.5px', color:'var(--text)', lineHeight:1.5 }}>{n.Title}</span>
-              )}
-              {tagStyle && (
-                <span style={{ fontSize:'9px', fontWeight:600, letterSpacing:'0.5px', textTransform:'uppercase', padding:'2px 6px', borderRadius:'1px', marginLeft:'5px', ...tagStyle }}>
-                  {tag}
-                </span>
-              )}
-              <br/>
-              <span style={{ fontSize:'11px', color:'var(--light-text)' }}>{n.Category}</span>
-            </div>
-          </div>
-        )
-      })}
+          )
+        })}
+      </div>
     </div>
   )
 }

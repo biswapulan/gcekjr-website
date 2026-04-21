@@ -1,6 +1,7 @@
 'use client'
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
+import { getDriveImageUrl } from '@/lib/driveImage'
 
 interface GalleryItem { Title: string; ImageUrl: string; Category: string }
 
@@ -56,7 +57,7 @@ export default function GalleryShowcase() {
             style={{ cursor: item ? 'pointer' : 'default' }}
           >
             {item?.ImageUrl ? (
-              <img src={item.ImageUrl} alt={item.Title} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+              <img src={getDriveImageUrl(item.ImageUrl)} alt={item.Title} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
             ) : (
               <div style={{ width: '100%', height: '100%', background: `linear-gradient(135deg, ${placeholderColors[i % 6][0]}, ${placeholderColors[i % 6][1]})`, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                 <div style={{ textAlign: 'center', opacity: 0.3 }}>
@@ -79,7 +80,7 @@ export default function GalleryShowcase() {
         <div className="gallery-lightbox" onClick={() => setLightbox(null)}>
           <button className="gallery-lightbox-close" onClick={() => setLightbox(null)}>✕</button>
           <div className="gallery-lightbox-inner" onClick={e => e.stopPropagation()}>
-            <img src={lightbox.ImageUrl} alt={lightbox.Title} style={{ maxWidth: '90vw', maxHeight: '80vh', objectFit: 'contain', display: 'block' }} />
+            <img src={getDriveImageUrl(lightbox.ImageUrl)} alt={lightbox.Title} style={{ maxWidth: '90vw', maxHeight: '80vh', objectFit: 'contain', display: 'block' }} />
             <div style={{ padding: '12px 16px', background: 'rgba(0,0,0,0.8)' }}>
               <div style={{ color: 'white', fontSize: '14px', fontWeight: 600 }}>{lightbox.Title}</div>
               <div style={{ color: 'rgba(255,255,255,0.5)', fontSize: '11px', marginTop: '2px' }}>{lightbox.Category}</div>

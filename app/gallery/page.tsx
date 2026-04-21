@@ -4,6 +4,7 @@ import UtilBar from '@/components/UtilBar'
 import Header from '@/components/Header'
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
+import { getDriveImageUrl } from '@/lib/driveImage'
 
 interface GalleryItem { Title: string; ImageUrl: string; Category: string }
 
@@ -45,7 +46,7 @@ export default function GalleryPage() {
                 style={{display:'block',border:'1px solid var(--border)',overflow:'hidden',textDecoration:'none'}}>
                 <div style={{height:'180px',background:'var(--blue-light)',display:'flex',alignItems:'center',justifyContent:'center',overflow:'hidden'}}>
                   {item.ImageUrl ? (
-                    <img src={item.ImageUrl} alt={item.Title} style={{width:'100%',height:'100%',objectFit:'cover'}}/>
+                    <img src={getDriveImageUrl(item.ImageUrl)} alt={item.Title} style={{width:'100%',height:'100%',objectFit:'cover'}}/>
                   ) : (
                     <span style={{color:'var(--muted)',fontSize:'12px'}}>Image</span>
                   )}

@@ -11,6 +11,7 @@ import RecruiterMarquee from '@/components/RecruiterMarquee'
 import GalleryShowcase from '@/components/GalleryShowcase'
 import BrochureDownloads from '@/components/BrochureDownloads'
 import AnimateOnScroll from '@/components/AnimateOnScroll'
+import PopupBanner from '@/components/PopupBanner'
 import Link from 'next/link'
 
 const departments = [
@@ -26,6 +27,7 @@ const departments = [
 export default function Home() {
   return (
     <div>
+      <PopupBanner />
       <UtilBar />
       <Header />
       <Nav />
@@ -37,12 +39,8 @@ export default function Home() {
         <div className="home-content">
 
           <AnimateOnScroll animation="fade-up">
-            <div className="section-heading">
-              <h2>Notices &amp; Announcements</h2>
-              <div className="section-heading-line" />
-            </div>
             <NoticeBoard limit={5} />
-            <div style={{ marginTop: '12px', textAlign: 'right' }}>
+            <div style={{ marginTop: '10px', textAlign: 'right' }}>
               <Link href="/notices" style={{ fontSize: '12px', color: 'var(--blue-mid)', fontWeight: 600 }}>
                 View All Notices →
               </Link>
@@ -50,9 +48,11 @@ export default function Home() {
           </AnimateOnScroll>
 
           <AnimateOnScroll animation="fade-up" delay={100}>
-            <div className="section-heading" style={{ margin: '28px 0 20px' }}>
-              <h2>About the Institution</h2>
-              <div className="section-heading-line" />
+            <div style={{ marginTop: '36px', paddingTop: '28px', borderTop: '1px solid var(--border)' }}>
+              <div className="section-heading">
+                <h2>About the Institution</h2>
+                <div className="section-heading-line" />
+              </div>
             </div>
             <div style={{ display: 'flex', gap: '16px', alignItems: 'flex-start', background: 'var(--off)', border: '1px solid var(--border)', padding: '16px', marginBottom: '20px' }}>
               <div style={{ width: '72px', height: '90px', background: 'var(--blue-light)', border: '1px solid var(--border)', flexShrink: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
@@ -88,36 +88,27 @@ export default function Home() {
 
       {/* Departments */}
       <AnimateOnScroll animation="fade-up">
-        <div style={{ background: 'var(--off)', borderTop: '1px solid var(--border)', borderBottom: '1px solid var(--border)', padding: '32px' }} className="dept-section">
-          <div className="section-heading">
-            <h2>Our Academic Departments</h2>
-            <div className="section-heading-line" />
-          </div>
-          {/* Desktop grid */}
-          <div className="dept-grid dept-grid-desktop">
-            {departments.map((d, i) => (
-              <Link key={d.code} href={d.href} className="dept-card" style={{ animationDelay: `${i * 60}ms` }}>
-                <div className="dept-code">{d.code}</div>
-                <div className="dept-name">{d.name}</div>
-                <div className="dept-since">{d.since}</div>
-                <span className="dept-arrow">→</span>
-              </Link>
-            ))}
-            <div className="dept-count">
-              <div style={{ fontFamily: 'Source Serif 4, serif', fontSize: '36px', fontWeight: 600, color: 'white' }}>7</div>
-              <div style={{ fontSize: '11px', color: 'rgba(255,255,255,0.6)', marginTop: '4px' }}>UG Programmes</div>
+        <div className="dept-section">
+          <div className="dept-section-inner">
+            <div className="section-heading">
+              <h2>Our Academic Departments</h2>
+              <div className="section-heading-line" />
             </div>
-          </div>
-          {/* Mobile horizontal scroll */}
-          <div className="dept-scroll-mobile">
-            {departments.map((d) => (
-              <Link key={d.code} href={d.href} className="dept-card dept-card-mobile">
-                <div className="dept-code">{d.code}</div>
-                <div className="dept-name">{d.name}</div>
-                <div className="dept-since">{d.since}</div>
-                <span className="dept-arrow">→</span>
-              </Link>
-            ))}
+            <div className="dept-scroll-row">
+              {departments.map((d) => (
+                <Link key={d.code} href={d.href} className="dept-card">
+                  <div className="dept-code">{d.code}</div>
+                  <div className="dept-name">{d.name}</div>
+                  <div className="dept-since">{d.since}</div>
+                  <span className="dept-arrow">→</span>
+                </Link>
+              ))}
+              <div className="dept-count">
+                <div style={{ fontFamily: 'Source Serif 4, serif', fontSize: '36px', fontWeight: 600, color: 'white' }}>7</div>
+                <div style={{ fontSize: '11px', color: 'rgba(255,255,255,0.6)', marginTop: '4px' }}>UG Programmes</div>
+              </div>
+            </div>
+            <div className="dept-scroll-fade" />
           </div>
         </div>
       </AnimateOnScroll>
