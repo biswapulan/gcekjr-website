@@ -306,22 +306,41 @@ a { text-decoration: none; color: inherit; }
 .hamburger {
   display: none;
   background: none;
-  border: 1px solid rgba(255,255,255,0.3);
+  border: none;
   cursor: pointer;
-  padding: 7px 14px;
-  color: white;
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 0.5px;
+  padding: 4px 0;
+  flex-direction: column;
+  gap: 5px;
   align-items: center;
   justify-content: center;
-  text-transform: uppercase;
 }
 .hamburger span {
-  display: none;
+  display: block;
+  width: 22px; height: 2px;
+  background: white;
+  border-radius: 1px;
 }
 
-/* ─── MOBILE DRAWER ─── */
+/* ─── MOBILE NAV CONTROLS ─── */
+.mobile-nav-controls {
+  display: none;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+.mobile-menu-text {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  cursor: pointer;
+  padding: 0;
+  line-height: 1;
+}
+
+
 .nav-drawer {
   position: fixed;
   top: 0; left: 0;
@@ -415,6 +434,33 @@ a { text-decoration: none; color: inherit; }
   text-decoration: none;
 }
 .drawer-sub-link:hover { color: white !important; background: rgba(255,255,255,0.05); }
+.drawer-quick-row {
+  display: flex;
+  gap: 8px;
+  padding: 12px 20px;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  flex-shrink: 0;
+}
+.drawer-quick-btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.15);
+  color: rgba(255,255,255,0.85);
+  font-size: 11px;
+  font-weight: 600;
+  padding: 8px 10px;
+  border-radius: 2px;
+  text-decoration: none;
+  letter-spacing: 0.3px;
+}
+.drawer-quick-btn:hover {
+  background: rgba(255,255,255,0.15);
+  color: white;
+}
 .drawer-footer {
   padding: 16px 20px;
   border-top: 1px solid rgba(255,255,255,0.1);
@@ -1111,8 +1157,9 @@ a.notice-title:hover { color: var(--blue); }
   /* ── Nav ── */
   .nav-desktop { display: none; }
   .nav-ext-links { display: none; }
+  .mobile-nav-controls { display: flex; }
   .hamburger { display: flex; }
-  .main-nav { justify-content: space-between; padding: 0 14px; }
+  .main-nav { justify-content: space-between; padding: 0 14px; min-height: 52px; }
 
   /* ── Hero ── */
   .hero { height: auto; min-height: 240px; }

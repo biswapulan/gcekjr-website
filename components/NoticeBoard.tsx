@@ -29,7 +29,13 @@ export default async function NoticeBoard({ limit = 6 }: { limit?: number }) {
   let notices: Notice[] = []
   try {
     const data = await getSheetData('Notices')
-    notices = (data as unknown as Notice[]).slice(0, limit)
+    notices = (data as unknown as Notice[])
+      .sort((a, b) => {
+        const da = new Date(a.Date).getTime()
+        const db = new Date(b.Date).getTime()
+        return (isNaN(db) ? 0 : db) - (isNaN(da) ? 0 : da)
+      })
+      .slice(0, limit)
   } catch {
     // fail silently
   }

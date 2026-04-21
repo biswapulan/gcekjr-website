@@ -95,10 +95,13 @@ export default function Nav() {
           ))}
         </div>
 
-        {/* Hamburger */}
+        {/* Mobile nav controls */}
+        <div className="mobile-nav-controls">
+          <button className="mobile-menu-text" onClick={() => setDrawerOpen(true)} aria-label="Open menu">MENU</button>
         <button className="hamburger" onClick={() => setDrawerOpen(true)} aria-label="Open menu">
-          Menu
+          <span/><span/><span/>
         </button>
+        </div>
       </nav>
 
       {/* Overlay */}
@@ -109,6 +112,21 @@ export default function Nav() {
         <div className="drawer-header">
           <div className="drawer-menu-title">Menu</div>
           <button className="drawer-close" onClick={() => setDrawerOpen(false)}>✕</button>
+        </div>
+
+        <div className="drawer-quick-row">
+          <a href="https://shebox.wcd.gov.in" target="_blank" rel="noopener noreferrer" className="drawer-quick-btn">
+            <svg width="13" height="13" viewBox="0 0 24 24" stroke="currentColor" fill="none" strokeWidth="2">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            </svg>
+            SHe-BOX
+          </a>
+          <a href="https://www.onlinesbi.sbi/sbicollect/icollecthome.htm" target="_blank" rel="noopener noreferrer" className="drawer-quick-btn">
+            <svg width="13" height="13" viewBox="0 0 24 24" stroke="currentColor" fill="none" strokeWidth="2">
+              <rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/>
+            </svg>
+            Pay Online
+          </a>
         </div>
 
         <div className="drawer-nav">

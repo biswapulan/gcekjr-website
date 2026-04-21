@@ -9,6 +9,7 @@ export default function Sidebar() {
     { label: 'Lecturer Notes', sub: 'Study Materials', href: '#', icon: 'M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8zM14 2v6h6' },
     { label: 'Alumni Network', sub: 'gcekjralumni.org', href: 'https://gcekjralumni.org', icon: 'M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2M9 7a4 4 0 100 8 4 4 0 000-8z' },
     { label: 'Grievance Portal', sub: 'edugrievance.com', href: 'https://edugrievance.com', icon: 'M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z' },
+    { label: 'SHe-BOX', sub: 'Workplace Harassment Complaints', href: 'https://shebox.wcd.gov.in', icon: 'M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z' },
   ]
 
   const importantLinks = [
